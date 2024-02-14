@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>День Святого Валентина</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  #heart {
+    width: 200px;
+    height: 200px;
+    background-image: url('heart.jpg'); /* замените 'heart.jpg' на ссылку на вашу фотографию сердца */
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  #heart:hover {
+    transform: scale(1.1);
+  }
+  
+  #popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  #heart::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.2);
+    z-index: -1;
+    transition: transform 0.3s ease;
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  #heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #f00 5%, transparent 10%);
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+    animation: firework 1s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes firework {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="heart"></div>
+
+<div id="popup">
+  <p>Я тебя люблю</p>
+</div>
+
+<script>
+  const heart = document.getElementById('heart');
+  const popup = document.getElementById('popup');
+
+  heart.addEventListener('click', () => {
+    popup.style.display = 'block';
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 2000); // показываем сообщение на 2 секунды
+
+    heart.querySelector('::before').style.opacity = 1;
+    heart.querySelector('::before').style.transform = 'scale(1.3)';
+    setTimeout(() => {
+      heart.querySelector('::before').style.opacity = 0;
+      heart.querySelector('::before').style.transform = 'scale(1)';
+    }, 500); // пульсация сердца
+
+    heart.querySelector('::after').style.opacity = 1;
+    setTimeout(() => {
+      heart.querySelector('::after').style.opacity = 0;
+    }, 1000); // анимация фейерверка
+  });
+</script>
+
+</body>
+</html>
